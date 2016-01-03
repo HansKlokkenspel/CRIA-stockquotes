@@ -82,6 +82,10 @@ var quotesController = function () {
         });
     };
 
+    var retrieveSocketQuoteData = function (cb) {
+
+    };
+
     /**
      * Parse the quotes according to the retrieved JSON data, into a usable format
      *
@@ -117,9 +121,9 @@ var quotesController = function () {
                 res.render('quotes', {quotes: parsedData});
             });
         } else if (reqType === 'generate') {
-            data = getStaticQuotes();
+            getStaticQuotes();
         } else {
-            data = getSocketQuotes(req, res);
+            res.render('quotes', {quotes: {}});
         }
     };
 

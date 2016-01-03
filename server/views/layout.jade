@@ -1,9 +1,14 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/assets/lib/bootstrap/dist/css/bootstrap.min.css')
-  body
-    block content
-    link(rel='stylesheet', href='/assets/lib/bootstrap/dist/js/bootstrap.min.js')
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/assets/lib/bootstrap/dist/css/bootstrap.min.css')
+
+        script(src='/assets/lib/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/socket.io/socket.io.js')
+    body
+        script.
+            var socket = io.connect("http://localhost:8080");
+        block content
+
