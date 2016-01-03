@@ -63,7 +63,7 @@ var quotesController = function () {
         var xhr = require('node-xhr');
 
         xhr.get({
-            url: settings.ajaxSettings.url,
+            url: 'http://hummingbird.me/api/v1/users/hansklokkenspel/library?status=completed',
             headers: {
                 'Content-Type': 'application/json'
             }

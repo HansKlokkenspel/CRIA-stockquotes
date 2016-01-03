@@ -8,11 +8,10 @@ var routes = function (sockets, ajax) {
      */
     quotesRouter.route('/sockets').get(quotesController.getSocketQuotes);
 
-    quotesRouter.route('/http').get(quotesController.getAjaxQuotes);
-
     /**
      * AJAX implementation
      */
+    quotesRouter.route('/http').get(quotesController.getAjaxQuotes);
 
     return quotesRouter;
 };
