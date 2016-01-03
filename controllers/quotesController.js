@@ -1,6 +1,8 @@
 var settings = require('../utilities/settings')();
 
 var quotesController = function () {
+    var quotes = {};
+
     /**
      * generates data based on the query, provided in the settings
      */
@@ -60,16 +62,42 @@ var quotesController = function () {
      * @param res, the express response object
      */
     var getAjaxQuotes = function (req, res) {
+        retrieveAjaxQuoteData(function (data) {
+            res.json(data);
+        });
+    };
+
+    var retrieveAjaxQuoteData = function (cb) {
         var xhr = require('node-xhr');
 
         xhr.get({
-            url: 'http://hummingbird.me/api/v1/users/hansklokkenspel/library?status=completed',
+            url: 'https://query.yahooapis.com/v1/public/yql?q=' + settings.ajaxSettings.query,
             headers: {
                 'Content-Type': 'application/json'
             }
-        }, function (err, res) {
-            console.log(res);
+        }, function (err, result) {
+            parseQuotes(result.body.query.results.quote, function (parsedData) {
+                cb(parsedData);
+            });
         });
+    };
+
+    /**
+     * Parse the quotes according to the retrieved JSON data, into a usable format
+     *
+     * @param data, raw JSON data to parse to quote "objects"
+     * @param cb, callback function to call when data has been succesfully parsed
+     */
+    var parseQuotes = function (data, cb) {
+        var quote;
+
+        for (var i = 0; i < data.length; ++i) {
+            quote = data[i].Symbol;
+
+            quotes[quote] = data[i];
+        }
+
+        cb(quotes);
     };
 
     /**
@@ -80,9 +108,25 @@ var quotesController = function () {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    var getQuotes = function (req, res) {
+        var reqType = req.param('type');
+        var data;
+
+        if (reqType === 'ajax') {
+            retrieveAjaxQuoteData(function (parsedData) {
+                res.render('quotes', {quotes: parsedData});
+            });
+        } else if (reqType === 'generate') {
+            data = getStaticQuotes();
+        } else {
+            data = getSocketQuotes(req, res);
+        }
+    };
+
     return {
         getSocketQuotes: getSocketQuotes,
-        getAjaxQuotes: getAjaxQuotes
+        getAjaxQuotes: getAjaxQuotes,
+        getQuotes: getQuotes
     };
 };
 

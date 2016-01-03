@@ -4,14 +4,19 @@ var routes = function (sockets, ajax) {
     var quotesController = require('../controllers/quotesController')();
 
     /**
+     * General page request
+     */
+    quotesRouter.route('/').get(quotesController.getQuotes);
+
+    /**
      * Sockets implementation
      */
-    quotesRouter.route('/sockets').get(quotesController.getSocketQuotes);
+    quotesRouter.route('/api/sockets').get(quotesController.getSocketQuotes);
 
     /**
      * AJAX implementation
      */
-    quotesRouter.route('/http').get(quotesController.getAjaxQuotes);
+    quotesRouter.route('/api/http').get(quotesController.getAjaxQuotes);
 
     return quotesRouter;
 };

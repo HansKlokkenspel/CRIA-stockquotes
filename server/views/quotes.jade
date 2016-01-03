@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1 Quotes
+    div
+        table(class='table table-striped')
+            thead
+                tr
+                    th Quote
+                    th Name
+                    th Change
+            tbody
+                each quote, i in quotes
+                    tr
+                        td=quote.Symbol
+                        td=quote.Name
+                        td=quote.Change

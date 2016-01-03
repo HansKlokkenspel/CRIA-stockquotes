@@ -2,6 +2,7 @@ var settings = function(){
     ajaxSettings = {
         refreshRate: 1000,
         url: 'http://server7.tezzt.nl/~theotheu/stockquotes',
+        query: 'select%20Change%2C%20Symbol%2C%20Name%20from%20yahoo.finance.quotes%20where%20symbol%20in(%22BCS%22%2C%22STT%22%2C%22JPM%22%2C%22LGEN.L%22%2C%22UBS%22%2C%22DB%22%2C%22BEN%22%2C%22CS%22%2C%22BK%22%2C%22KN.PA%22%2C%22GS%22%2C%22LM%22%2C%22MS%22%2C%22MTU%22%2C%22NTRS%22%2C%22GLE.PA%22%2C%22BAC%22%2C%22AV%22%2C%22SDR.L%22%2C%22DODGX%22%2C%22SLF%22%2C%22SL.L%22%2C%22NMR%22%2C%22ING%22%2C%22BNP.PA%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=',
         data: 100
     };
 
